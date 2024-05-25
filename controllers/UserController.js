@@ -32,7 +32,10 @@ const getUsuarioByEmail = async (req, res) => {
 const createUsuario = async (req, res) => {
     try {
         const savedUser = await UsuarioService.createUsuario(req.body);
-        return res.status(200).json({ message: `Usuário com o id ${savedUser._id} criado com sucesso` });
+        console.log('savedUser' + savedUser)
+        return res.status(201)
+            .location(`/usuarios/${savedUser._id}`)
+            .json({ message: `Usuário com o id ${savedUser._id} criado com sucesso` });
     } catch (error) {
         if (error.code === 11000 && error.errmsg.includes('duplicate key error')) {
             return res.status(409).json({ message: 'O email fornecido já está em uso' });

@@ -16,25 +16,30 @@ class UsuarioService {
     }
 
     async createUsuario(usuarioData) {
-        const usuario = new Usuario(usuarioData);
-        return await usuario.save();
+        try {
+            const usuario = Usuario.criarUsuario(usuarioData);
+            const savedUsuario = await usuario.save();
+            return savedUsuario;
+        } catch (error) {
+            console.error("Erro ao salvar o usuário:", error);
+            throw error;
+        }
     }
-
     async updateUsuario(id, usuarioData) {
         const usuario = await Usuario.findById(id);
         if (!usuario) throw new Error('Usuário não encontrado');
-        
+
         // Atualiza os campos do usuário com os dados fornecidos
         Object.assign(usuario, usuarioData);
         usuario.data_alteracao = Date.now();
-        
+
         return await usuario.save();
     }
 
     async deleteUsuario(id) {
         const usuario = await Usuario.findById(id);
         if (!usuario) throw new Error('Usuário não encontrado');
-        
+
         return await usuario.remove();
     }
 }
