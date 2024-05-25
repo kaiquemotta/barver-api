@@ -32,7 +32,6 @@ const getUsuarioByEmail = async (req, res) => {
 const createUsuario = async (req, res) => {
     try {
         const savedUser = await UsuarioService.createUsuario(req.body);
-        console.log('savedUser' + savedUser)
         return res.status(201)
             .location(`/usuarios/${savedUser._id}`)
             .json({ message: `Usuário com o id ${savedUser._id} criado com sucesso` });
