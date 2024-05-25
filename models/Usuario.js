@@ -46,8 +46,5 @@ usuarioSchema.statics.criarUsuario = function (dadosUsuario) {
   });
 };
 
-usuarioSchema.methods.remove = function(callback) {
-  return this.model('Usuario').deleteOne({ _id: this._id }, callback);
-};
 
 module.exports = mongoose.model('Usuario', usuarioSchema);

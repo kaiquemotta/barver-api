@@ -6,23 +6,15 @@ const userRoutes = require('./routes/UserRoutes');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const path = require('path');
+
+const database = require('./config/database');
+
 // Middleware para análise de corpos de solicitação JSON
 app.use(bodyParser.json());
 
 // Lidar com rotas inexistentes
 // Defina o diretório onde suas imagens de erro estão localizadas
 const imageDirectory = path.join(__dirname, 'public', 'images');
-
-// Conexão com o MongoDB
-mongoose.connect('mongodb://localhost:27017/myapp', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => {
-    console.log('Conexão com o MongoDB estabelecida.');
-}).catch(err => {
-    console.error('Erro ao conectar ao MongoDB:', err.message);
-    process.exit(1);
-});
 
 // Rotas de usuário
 app.use('/api/users', userRoutes);
